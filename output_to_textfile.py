@@ -1,6 +1,7 @@
 import cv2
 
 
+
 imagepath = "goop.png"
 
 # Loads image
@@ -13,6 +14,7 @@ with open("outputFile", "w") as out:
         for pixel in row: #pixel is each individual pixel 
             out.write(str(pixel) + "\n")
             
+
 
 
 
