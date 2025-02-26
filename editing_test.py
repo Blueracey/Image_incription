@@ -26,9 +26,18 @@ imagepath = "goop.png"
 img = cv2.imread(imagepath)
 assert img is not None, "File is missing"
 
+print(img[0])
+
+#img[0][0] = 63,92,12
+
+img[0][0][0] = img[0][0][0]+1
+
+print("_______")
+
+print(img[0])
 
 
-
+cv2.imwrite("test.png",img)
 
             
 # looks promising https://www.geeksforgeeks.org/how-to-edit-a-pixel-value-using-opencv/
