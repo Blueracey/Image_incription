@@ -20,7 +20,7 @@ def saveAsText(image):
                     out.write(str(pixel[2]) + "\n")
 
 
-imagepath = "goop.png"
+imagepath = "alot of wierd coulors.jpg"
 
 # Loads image
 img = cv2.imread(imagepath)
@@ -28,16 +28,16 @@ assert img is not None, "File is missing"
 
 print(img[0])
 
-#img[0][0] = 63,92,12
+img[0][0] = 63,92,12
 
-img[0][0][0] = img[0][0][0]+1
+#img[0][0][0] = img[0][0][0]+1
 
 print("_______")
 
 print(img[0])
 
 
-cv2.imwrite("test.png",img)
+cv2.imwrite("testBig.png",img)
 
             
 # looks promising https://www.geeksforgeeks.org/how-to-edit-a-pixel-value-using-opencv/
