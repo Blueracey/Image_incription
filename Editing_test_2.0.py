@@ -21,7 +21,6 @@ cypher =  { "a":[0,1,1,0,0,0,0,1]
            ,"n" :[0,1,1,0,1,1,1,0]
            ,"o" :[0,1,1,0,1,1,1,1]
            ,"p" :[0,1,1,1,0,0,0,0]
-
            ,"q" :[0,1,1,1,0,0,0,1]
            ,"r" :[0,1,1,1,0,0,1,0]
            ,"s" :[0,1,1,1,0,0,1,1]
@@ -48,7 +47,7 @@ def isEven(int):
 
 
 def getMessage():
-     message  = "Hi I am Corbyn" 
+     message  = "Hi I am Corbyn Bromlings" 
      split = message.split()
 
 
@@ -85,24 +84,142 @@ def get_image(imagepath):
  
 def encript(img):
      # takes the image and interates through it following  the pattern provided to it 
-     # it then changes values by 1 in order to makie them positive or negative so we can later read taht as binary 
+     # it then changes values by 1 in order to makie them positive or negative so we can later read that as binary 
      # it then saves the image and exits
 
-        red = pattern["red"]
-        green = pattern["green"]
-        blue = pattern["blue"]
-        message = getMessage() #get message returns a list of binary  values to put into the image
-        finalImg = img
+     red = pattern["red"]
+     green = pattern["green"]
+     blue = pattern["blue"]
+     message = getMessage() #get message returns a list of binary  values to put into the image
+     finalImg = img
+     imageLen = len(message)
+     redCount = 1
+     blueCount = 0
+     greenCount = 0
+     wordcount = 0
 
-        redCount = 1
-        blueCount = 0
-        greenCount = 0
-        wordcount = 0
-        try :
+
+     
+        
+     red = img[0][0][0]
+     green = img[0][0][1] 
+     blue = img[0][0][2]
+
+     #Num variables are the last Character of the RGB value
+     for i in str(red):
+          redNum = int(i)
+
+        
+        
+     for i in str(green):
+          greenNum = int(i)
+
+        
+        
+     for i in str(blue):
+          blueNum = int(i)
+
+
+
+     messageby8 = int(imageLen/8)
+        
+
+
+     messageby8split = []
+      
+
+     if len(str(messageby8)) == 3:
+          print("len 3")
+          for i in str(messageby8):
+                messageby8split.append(int(i))
+
+
+          
+
+                
+     elif len(str(messageby8)) == 2: #used if message  is split into two digits 
+          print("len 2")
+          for i in str(messageby8): #splits the message length into chunks 
+               messageby8split.append(i)
+          
+          if redNum == int(messageby8split[0]):
+               print("equal")
+          elif redNum > int(messageby8split[0]):
+               print("greater then")
+
+               difRed = redNum -int(messageby8split[0]) #gets the difference between the number red currentyly is and what it should be
+               img[0][0][0] = red - difRed #changes red to the value it should be 
+
+               
+          else :
+               print("less then")
+
+               difRed =  int(messageby8split[0])- redNum #gets the difference between the number red currentyly is and what it should be
+               img[0][0][0] = red + difRed #changes red to the value it should be 
+
+
+          if greenNum == int(messageby8split[1]):
+               print("equal")
+
+          elif greenNum > int(messageby8split[1]):
+               print("greater then")
+
+               difgreen = greenNum -int(messageby8split[1]) #gets the difference between the number red currentyly is and what it should be
+               img[0][0][1] = red - difgreen #changes red to the value it should be 
+
+              
+          else :
+               print("less then")
+
+               difgreen =  int(messageby8split[1])- greenNum #gets the difference between the number red currentyly is and what it should be
+               img[0][0][1] = green + difgreen #changes red to the value it should be 
+          
+
+                
+                
+     else:
+          print("len 1")
+          for i in str(messageby8):
+               messageby8split.append(i)
+
+
+          if redNum == int(messageby8split[0]):
+               print("equal")
+          elif redNum > int(messageby8split[0]):
+               print("greater then")
+
+               difRed = redNum -int(messageby8split[0]) #gets the difference between the number red currentyly is and what it should be
+               img[0][0][0] = red - difRed #changes red to the value it should be 
+
+               
+          else :
+               print("less then")
+
+               difRed =  int(messageby8split[0])- redNum #gets the difference between the number red currentyly is and what it should be
+               img[0][0][0] = red + difRed #changes red to the value it should be 
+     #print("eh")
+     print(messageby8split)
+
+     print(img[0][0])
+             
+
+
+
+
+
+
+        
+
+
+
+
+     try :
           for row in img: #row is the actual rows in the image 
                
-               
+
+
                for pixel in row: #interates by each pixel so the pixel variable is an RGB value set
+                    
                     if redCount>0: #if this is higher the value we are  looking to change is red
                          if redCount == red : #if this is equal we've jumped the correct amount of pixels so it's time to change one
                               
@@ -201,7 +318,7 @@ def encript(img):
                                         wordcount = wordcount+1
                          else :
                               blueCount = blueCount+1
-        except:
+     except:
           cv2.imwrite("test.png",finalImg)
           print("Encription completed")
 
@@ -239,7 +356,7 @@ def decript(img):
                                    redCount = 0 
                                    greenCount = 1 #changes green to be the next value to be checked 
                                    characterCount = characterCount+1 #counts how many chracters have been added
-                                   if isEven(pixel[0]): #we already know  we are lookjing at the right pixel so this just checks if it's even 
+                                   if isEven(pixel[0]): #we already know  we are looking at the right pixel so this just checks if it's even 
                                         message.append(0) # if it's even it's a 0
                                    else :
                                         message.append(1) #otherwise it's a 1 
@@ -306,7 +423,7 @@ def remakemessage(msg): #receives a embeded list of binary and converts it into 
      final = "" #string that the loop below appends to
 
 
-     for i in total: #loops trhough each list of binary
+     for i in total: #loops through each list of binary
           for letter,binary in cypher.items(): #loops through the cypher and checks if the currently selected binary matches
                if i == binary :
                     final = final + letter #appends it to the string
@@ -326,13 +443,13 @@ def remakemessage(msg): #receives a embeded list of binary and converts it into 
 encript(img)
 
 
-decriptimg = get_image("test.png")
+#decriptimg = get_image("test.png")
 
-message = decript(decriptimg)
+#message = decript(decriptimg)
 
 
 
-print(remakemessage(message))
+#print(remakemessage(message))
 
 
 
