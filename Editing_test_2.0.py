@@ -100,24 +100,27 @@ def encript(img):
 
 
      
-        
-     red = img[0][0][0]
-     green = img[0][0][1] 
-     blue = img[0][0][2]
+     #the next 100 lines handle the hiding of the message lenght within the first pixel of the image    
+
+     #it's also the worst code I have ever written 
+     redimg = img[0][0][0]
+     greenimg = img[0][0][1] 
+     blueimg = img[0][0][2]
 
      #Num variables are the last Character of the RGB value
-     for i in str(red):
+     for i in str(redimg):
           redNum = int(i)
 
         
         
-     for i in str(green):
+     for i in str(greenimg):
           greenNum = int(i)
 
         
         
-     for i in str(blue):
+     for i in str(blueimg):
           blueNum = int(i)
+     
 
 
 
@@ -127,37 +130,28 @@ def encript(img):
 
      messageby8split = []
       
-
+########################################################## 3 digits changed ######################################################
      if len(str(messageby8)) == 3:
           print("len 3")
           for i in str(messageby8):
                 messageby8split.append(int(i))
-
-
-          
-
-                
-     elif len(str(messageby8)) == 2: #used if message  is split into two digits 
-          print("len 2")
-          for i in str(messageby8): #splits the message length into chunks 
-               messageby8split.append(i)
-          
+          #changes the first digit 
           if redNum == int(messageby8split[0]):
                print("equal")
           elif redNum > int(messageby8split[0]):
                print("greater then")
 
                difRed = redNum -int(messageby8split[0]) #gets the difference between the number red currentyly is and what it should be
-               img[0][0][0] = red - difRed #changes red to the value it should be 
+               img[0][0][0] = redimg - difRed #changes red to the value it should be 
 
                
           else :
                print("less then")
 
                difRed =  int(messageby8split[0])- redNum #gets the difference between the number red currentyly is and what it should be
-               img[0][0][0] = red + difRed #changes red to the value it should be 
+               img[0][0][0] = redimg + difRed #changes red to the value it should be 
 
-
+          #changes the second digit 
           if greenNum == int(messageby8split[1]):
                print("equal")
 
@@ -165,44 +159,111 @@ def encript(img):
                print("greater then")
 
                difgreen = greenNum -int(messageby8split[1]) #gets the difference between the number red currentyly is and what it should be
-               img[0][0][1] = red - difgreen #changes red to the value it should be 
+               img[0][0][1] = greenimg - difgreen #changes red to the value it should be 
 
               
           else :
                print("less then")
 
-               difgreen =  int(messageby8split[1])- greenNum #gets the difference between the number red currentyly is and what it should be
-               img[0][0][1] = green + difgreen #changes red to the value it should be 
+               difblue =  int(messageby8split[1])- blueNum #gets the difference between the number red currentyly is and what it should be
+               img[0][0][1] = greenimg + difgreen #changes red to the value it should be 
           
 
+
+          #changes the third digit 
+          if blueNum == int(messageby8split[1]):
+               print("equal")
+
+          elif blueNum > int(messageby8split[1]):
+               print("greater then")
+
+               difblue = blueNum -int(messageby8split[1]) #gets the difference between the number red currentyly is and what it should be
+               img[0][0][1] = blueimg - difblue #changes red to the value it should be 
+
+              
+          else :
+               print("less then")
+
+               difblue =  int(messageby8split[1])- blueNum #gets the difference between the number red currentyly is and what it should be
+               img[0][0][1] = blueimg + difblue #changes red to the value it should be 
+
+
+
+          
+
+          
+
+
+          
+########################################################## 2 digits changed ######################################################
                 
-                
-     else:
-          print("len 1")
-          for i in str(messageby8):
+     elif len(str(messageby8)) == 2: #used if message  is split into two digits 
+          print("len 2")
+          for i in str(messageby8): #splits the message length into chunks 
                messageby8split.append(i)
-
-
+          #changes the first digit 
           if redNum == int(messageby8split[0]):
                print("equal")
           elif redNum > int(messageby8split[0]):
                print("greater then")
 
                difRed = redNum -int(messageby8split[0]) #gets the difference between the number red currentyly is and what it should be
-               img[0][0][0] = red - difRed #changes red to the value it should be 
+               img[0][0][0] = redimg - difRed #changes red to the value it should be 
 
                
           else :
                print("less then")
 
                difRed =  int(messageby8split[0])- redNum #gets the difference between the number red currentyly is and what it should be
-               img[0][0][0] = red + difRed #changes red to the value it should be 
-     #print("eh")
-     print(messageby8split)
+               img[0][0][0] = redimg + difRed #changes red to the value it should be 
 
-     print(img[0][0])
-             
+          #changes the second digit
+          if greenNum == int(messageby8split[1]):
+               print("equal")
 
+          elif greenNum > int(messageby8split[1]):
+               print("greater then")
+
+               difgreen = greenNum -int(messageby8split[1]) #gets the difference between the number red currentyly is and what it should be
+               img[0][0][1] = greenimg - difgreen #changes red to the value it should be 
+
+              
+          else :
+               print("less then")
+
+               difgreen =  int(messageby8split[1])- greenNum #gets the difference between the number red currentyly is and what it should be
+               img[0][0][1] = greenimg + difgreen #changes red to the value it should be 
+
+          img[0][0][2] = img[0][0][2]-blueNum #changes the third digit to 0 
+          
+          
+
+ ########################################################## 1 digits changed ######################################################               
+                 
+     else: #used if the message if the length message is only split into one digit 
+          print("len 1")
+          for i in str(messageby8):
+               messageby8split.append(i)
+
+          #changes first digit
+          if redNum == int(messageby8split[0]): 
+               print("equal")
+          elif redNum > int(messageby8split[0]):
+               print("greater then")
+
+               difRed = redNum -int(messageby8split[0]) #gets the difference between the number red currentyly is and what it should be
+               img[0][0][0] = redimg - difRed #changes red to the value it should be 
+
+               
+          else :
+               print("less then")
+
+               difRed =  int(messageby8split[0])- redNum #gets the difference between the number red currentyly is and what it should be
+               img[0][0][0] = redimg + difRed #changes red to the value it should be 
+
+
+          img[0][0][1] = img[0][0][1]-greenNum  #changes seccond digit to 0
+          img[0][0][2] = img[0][0][2]-blueNum   #changes third digit to 0
 
 
 
@@ -211,7 +272,7 @@ def encript(img):
         
 
 
-
+     #the following handles the  message incription itself 
 
      try :
           for row in img: #row is the actual rows in the image 
@@ -443,13 +504,13 @@ def remakemessage(msg): #receives a embeded list of binary and converts it into 
 encript(img)
 
 
-#decriptimg = get_image("test.png")
+decriptimg = get_image("test.png")
 
-#message = decript(decriptimg)
+message = decript(decriptimg)
 
 
 
-#print(remakemessage(message))
+print(remakemessage(message))
 
 
 

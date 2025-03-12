@@ -2,7 +2,7 @@ import cv2
 
 
 
-imagepath = "goop.png"
+imagepath = "test.png"
 
 # Loads image
 img = cv2.imread(imagepath)
