@@ -4,7 +4,7 @@
         orientation: "vertical"
         canvas.before:
             Color:
-                rgba: (0.7, 0.7, 0.7, 1)  # ✅ Background is grey
+                rgba: (0.7, 0.7, 0.7, 1)  #Background is grey
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -27,7 +27,7 @@
             hint_text: "Enter decryption key"
 
         ToggleButton:
-            id: reuse_key_button  # ✅ Fix: Add ID
+            id: reuse_key_button
             text: "Reuse Last Key" if root.reuse_key else "Do Not Reuse Key"
             on_release: root.toggle_reuse_key()
 

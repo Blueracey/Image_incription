@@ -27,7 +27,7 @@
             hint_text: "Enter message to encrypt"
 
         ToggleButton:
-            id: reuse_key_button  # ✅ Fix: Add ID
+            id: reuse_key_button
             text: "Reuse Last Key" if root.reuse_key else "Do Not Reuse Key"
             on_release: root.toggle_reuse_key()
 
