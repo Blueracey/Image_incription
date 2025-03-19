@@ -1,0 +1,18 @@
+# Frontend (Kivy UI)
+kivy
+kivy-examples
+numpy
+opencv-python  # Needed for image processing
+
+# Backend (Flask API)
+flask  # Core backend framework
+flask-cors  # Allows frontend to communicate with backend (CORS handling)
+requests  # Used for API calls from the frontend
+pillow  # Image processing for encryption/decryption
+
+# File Handling & Encoding
+pycryptodome  # Encryption & decryption support
+python-dotenv  # Environment variables management
+
+# Optional (Debugging & Development)
+watchdog  # Auto-reload backend on file changes

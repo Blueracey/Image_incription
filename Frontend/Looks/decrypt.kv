@@ -1,0 +1,48 @@
+<DecryptScreen>:
+    name: "decrypt"
+    BoxLayout:
+        orientation: "vertical"
+        canvas.before:
+            Color:
+                rgba: (0.7, 0.7, 0.7, 1)  # ✅ Background is grey
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Decrypt"
+            font_size: "32sp"
+            size_hint_y: None
+            height: "50dp"
+
+        Button:
+            text: "Select Image"
+            on_release: root.open_file_chooser()
+
+        Label:
+            text: root.selected_file
+
+        TextInput:
+            id: key_input
+            hint_text: "Enter decryption key"
+
+        ToggleButton:
+            id: reuse_key_button  # ✅ Fix: Add ID
+            text: "Reuse Last Key" if root.reuse_key else "Do Not Reuse Key"
+            on_release: root.toggle_reuse_key()
+
+        Button:
+            text: "Decrypt"
+            on_release: root.decrypt_message()
+
+        Label:
+            id: decrypted_message
+            text: "Decrypted Message Here"
+
+        Button:
+            text: "Back to Home"
+            on_release: app.root.current = "home"
+
+        Button:
+            text: "Toggle Theme"
+            on_release: app.toggle_theme()

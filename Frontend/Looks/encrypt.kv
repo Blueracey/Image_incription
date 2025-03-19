@@ -1,0 +1,48 @@
+<EncryptScreen>:
+    name: "encrypt"
+    BoxLayout:
+        orientation: "vertical"
+        canvas.before:
+            Color:
+                rgba: (0.53, 0.81, 0.98, 1) if app.theme_mode else (0.2, 0.2, 0.2, 1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Encrypt"
+            font_size: 28
+            color: (0, 0, 0, 1) if app.theme_mode else (1, 1, 1, 1)
+
+        Button:
+            text: "Select Image"
+            on_release: root.open_file_chooser()
+
+        Label:
+            id: selected_file_label
+            text: root.selected_file
+
+        TextInput:
+            id: message_input
+            hint_text: "Enter message to encrypt"
+
+        ToggleButton:
+            id: reuse_key_button  # ✅ Fix: Add ID
+            text: "Reuse Last Key" if root.reuse_key else "Do Not Reuse Key"
+            on_release: root.toggle_reuse_key()
+
+        Button:
+            text: "Encrypt"
+            on_release: root.encrypt_message()
+
+        Label:
+            id: key_output
+            text: "Generated Key: (Click to Copy)"
+
+        Button:
+            text: "Back to Home"
+            on_release: app.root.current = "home"
+
+        Button:
+            text: "Toggle Theme"
+            on_release: app.toggle_theme()
