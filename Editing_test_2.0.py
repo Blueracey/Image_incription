@@ -5,35 +5,6 @@ import cv2
 #the max value of RGB is 255,255,255 
 
 
-cypher =  { "a" :[0,1,1,0,0,0,0,1]
-           ,"b" :[0,1,1,0,0,0,1,0]
-           ,"c" :[0,1,1,0,0,0,1,1]
-           ,"d" :[0,1,1,0,0,1,0,0]
-           ,"e" :[0,1,1,0,0,1,0,1]
-           ,"f" :[0,1,1,0,0,1,1,0]
-           ,"g" :[0,1,1,0,0,1,1,1]
-           ,"h" :[0,1,1,0,1,0,0,0]
-           ,"i" :[0,1,1,0,1,0,0,1]
-           ,"j" :[0,1,1,0,1,0,1,0]
-           ,"k" :[0,1,1,0,1,0,1,1]
-           ,"l" :[0,1,1,0,1,1,0,0]
-           ,"m" :[0,1,1,0,1,1,0,1]
-           ,"n" :[0,1,1,0,1,1,1,0]
-           ,"o" :[0,1,1,0,1,1,1,1]
-           ,"p" :[0,1,1,1,0,0,0,0]
-           ,"q" :[0,1,1,1,0,0,0,1]
-           ,"r" :[0,1,1,1,0,0,1,0]
-           ,"s" :[0,1,1,1,0,0,1,1]
-           ,"t" :[0,1,1,1,0,1,0,0]
-           ,"u" :[0,1,1,1,0,1,0,1]
-           ,"v" :[0,1,1,1,0,1,1,0]
-           ,"w" :[0,1,1,1,0,1,1,1]
-           ,"x" :[0,1,1,1,1,0,0,0]
-           ,"y" :[0,1,1,1,1,0,0,1]
-           ,"z" :[0,1,1,1,1,0,1,0]
-           ," " :[0,0,1,0,0,0,0,0]
-             }
-
 pattern = {"red" : 20 , "green" : 35 , "blue" :12}
 
 imagepath = "goop.png"
@@ -46,6 +17,15 @@ def isEven(int):
 
 
 
+def toBinary(char):
+     return format(ord(char),'08b')
+
+def toChar(bits):
+    return chr(int(bits, 2))
+
+
+
+
 def getMessage():
      message  = "Hi I am Corbyn" 
      split = message.split()
@@ -54,19 +34,28 @@ def getMessage():
      finalletters = []
      
      for i in split: #seperates all the character and puts each word in it's own list within the main list
-          finalletters.append(list(i.lower()))
+          finalletters.append(list(i))
      
      final = [] 
+
      for i in finalletters:
 
+
           
-          final.extend(cypher[" "]) #adds a space 
           for j in i :
-               final.extend(cypher[j]) #get's the number that represents each letter 
+
+               #final.extend(toBinary(j).split()) #get's the number that represents each letter 
+               for k in toBinary(j):
+                    
+                    final.append(int(k))
+
+
+          final.extend([0,0,1,0,0,0,0,0]) #adds a space 
+      
+     
      
 
      
-
 
      return final
 
@@ -387,34 +376,31 @@ def decript(img):
 
 
 def remakemessage(msg): #receives a embeded list of binary and converts it into a sentence 
-     count = 0
-     character = []
-     total = []
 
-     c = 0
-     for i in msg:
 
-          
-          if count == 7 :
-               character.append(i)
-               total.append(character)
-               count = 0
-               c = c+1
-               character = []
-          else :
-               count = count +1
-               character.append(i)
+     char = ""
+     binary = []
+     for i in msg: 
+
+          char += str(i)
+          if len(char) == 8:
+               binary.append(char)
+               char = ""
 
      
+               
+
+
      final = "" #string that the loop below appends to
 
+     for i in binary:
+          
+          final= final + str(toChar(i))
 
-     for i in total: #loops through each list of binary
-          for letter,binary in cypher.items(): #loops through the cypher and checks if the currently selected binary matches
-               if i == binary :
-                    final = final + letter #appends it to the string
 
-     
+
+
+
      return final 
 
 
