@@ -28,8 +28,8 @@
 
         ToggleButton:
             id: reuse_key_button
-            text: "Reuse Last Key" if root.reuse_key else "Do Not Reuse Key"
-            on_release: root.toggle_reuse_key()
+            text: "Reusing Key" if self.state == "down" else "Not Reusing Key"
+            on_state: root.toggle_reuse_key(self.state)
 
         Button:
             text: "Encrypt"
@@ -38,6 +38,10 @@
         Label:
             id: key_output
             text: "Generated Key: (Click to Copy)"
+
+        Button:
+            text: "Download Encrypted Image"
+            on_release: root.download_encrypted_image()
 
         Button:
             text: "Back to Home"

@@ -27,6 +27,9 @@ class MyApp(App):
         self.sm.add_widget(HomeScreen(name="home"))
         self.sm.add_widget(EncryptScreen(name="encrypt"))
         self.sm.add_widget(DecryptScreen(name="decrypt"))
+        
+        self.update_theme()
+        
         return self.sm
 
     def toggle_theme(self):
