@@ -1,35 +1,45 @@
+<ImageButton@ButtonBehavior+Image>:
+    on_release: app.root.get_screen('decrypt').show_full_image(self.source)
+    allow_stretch: True
+    keep_ratio: True
+    size_hint_y: 0.5
+
 <DecryptScreen>:
     name: "decrypt"
     BoxLayout:
         orientation: "vertical"
+        padding: 10
+        spacing: 10
         canvas.before:
             Color:
-                rgba: (0.7, 0.7, 0.7, 1)  #Background is grey
+                rgba: (0.3, 0.15, 0.05, 1) if not app.theme_mode else (1, 0.8, 0.6, 1)
             Rectangle:
                 pos: self.pos
                 size: self.size
 
         Label:
             text: "Decrypt"
-            font_size: "32sp"
-            size_hint_y: None
-            height: "50dp"
+            font_size: 28
+            color: (1, 1, 1, 1)
 
         Button:
             text: "Select Image"
             on_release: root.open_file_chooser()
 
-        Label:
-            text: root.selected_file
+        ImageButton:
+            id: selected_image
+            source: ""
+            size_hint_y: 0.5
 
         TextInput:
             id: key_input
             hint_text: "Enter decryption key"
+            multiline: False
 
         ToggleButton:
             id: reuse_key_button
-            text: "Reusing Key" if self.state == "down" else "Not Reusing Key"
-            on_state: root.toggle_reuse_key(self.state)
+            text: "Not Reusing Key"
+            on_release: root.toggle_reuse_key()
 
         Button:
             text: "Decrypt"
@@ -42,7 +52,3 @@
         Button:
             text: "Back to Home"
             on_release: app.root.current = "home"
-
-        Button:
-            text: "Toggle Theme"
-            on_release: app.toggle_theme()

@@ -3,6 +3,7 @@ kivy
 kivy-examples
 numpy
 opencv-python  # Needed for image processing
+tk  # For opening native Windows file dialog 
 
 # Backend (Flask API)
 flask  # Core backend framework
