@@ -35,15 +35,28 @@ def generateCode():
      blue = random.randint(4,99)
 
 
-     code = {"red" : hex(red*12345600), "green" : hex(green*12345600) , "blue" :hex(blue*12345600)}
+     code = {"red" : hex(red*12345600), "green" : hex(green*12345600) , "blue" : hex(blue*12345600)}
 
       
      return code
 
-
-
-def transalateCode(code):
+def connverToKeyString(code):
      
+     key = str(code["red"]) +"|" + str(code["green"]) +"|" + str(code["blue"]) 
+     print(key)
+     return key
+
+def convertKeyStringToDictionary(key):
+     split = key.split("|")
+     dict = {"red" : split[0], "green" : split[1] , "blue" : split[2]}
+
+     return  dict
+
+
+
+def transalateCode(key):
+     
+     code = convertKeyStringToDictionary(key)
      red = code["red"]
      green = code["green"]
      blue = code["blue"]
@@ -51,7 +64,7 @@ def transalateCode(code):
      
      pattern = {"red" : int(int(red,16)/12345600), "green" : int(int(green,16)/12345600) , "blue" : int(int(blue,16)/12345600)}
      print(pattern)
-     return
+     return pattern
 
 def getMessage():
      message  = "Hi I am Corbyn" 
@@ -435,8 +448,8 @@ def remakemessage(msg): #receives a embeded list of binary and converts it into 
 
 
           
-key =generateCode()
-
+code =generateCode()
+key = connverToKeyString(code)
 transalateCode(key)
 
 #encript(img)
