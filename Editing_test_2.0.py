@@ -1,8 +1,10 @@
 #this is an atempt to use a dictionary to make a cypher 
 import cv2
-
+import random
+import math
 
 #the max value of RGB is 255,255,255 
+
 
 
 pattern = {"red" : 20 , "green" : 35 , "blue" :12}
@@ -23,8 +25,33 @@ def toBinary(char):
 def toChar(bits):
     return chr(int(bits, 2))
 
+def generateCode():
+
+     
+     
+     
+     red = random.randint(4,99)
+     green = random.randint(4,99)
+     blue = random.randint(4,99)
 
 
+     code = {"red" : hex(red*12345600), "green" : hex(green*12345600) , "blue" :hex(blue*12345600)}
+
+      
+     return code
+
+
+
+def transalateCode(code):
+     
+     red = code["red"]
+     green = code["green"]
+     blue = code["blue"]
+     
+     
+     pattern = {"red" : int(int(red,16)/12345600), "green" : int(int(green,16)/12345600) , "blue" : int(int(blue,16)/12345600)}
+     print(pattern)
+     return
 
 def getMessage():
      message  = "Hi I am Corbyn" 
@@ -408,20 +435,20 @@ def remakemessage(msg): #receives a embeded list of binary and converts it into 
 
 
           
+key =generateCode()
+
+transalateCode(key)
+
+#encript(img)
+
+
+#decripting = get_image("test.png")
+
+#message = decript(decripting)
 
 
 
-
-encript(img)
-
-
-decripting = get_image("test.png")
-
-message = decript(decripting)
-
-
-
-print(remakemessage(message))
+#print(remakemessage(message))
 
 
 
