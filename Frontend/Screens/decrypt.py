@@ -3,16 +3,16 @@ from kivy.properties import StringProperty, BooleanProperty
 from kivy.uix.image import Image as KivyImage
 from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
-import requests
-
-BACKEND_URL = "http://127.0.0.1:5000"
+from Utils.file_chooser import FileChooserPopup
+from Utils.utils import get_image
+from Utils.decryption import decript, remakemessage
+import ast
 
 class DecryptScreen(Screen):
     selected_file = StringProperty("No image selected")
     reuse_key = BooleanProperty(False)
 
     def open_file_chooser(self):
-        from Utils.file_chooser import FileChooserPopup
         popup = FileChooserPopup(self.set_selected_file)
         popup.open()
 
@@ -29,21 +29,25 @@ class DecryptScreen(Screen):
             print("Please select an image first.")
             return
 
-        key = self.ids.key_input.text
-        if not key:
+        key_str = self.ids.key_input.text.strip()
+        if not key_str:
             print("Please enter a decryption key.")
             return
 
-        files = {'image': open(self.selected_file, 'rb')}
-        data = {'key': key, 'reuse_key': self.reuse_key}
-        response = requests.post(f"{BACKEND_URL}/decrypt", files=files, data=data)
+        try:
+            # Safely parse string to dictionary
+            pattern = ast.literal_eval(key_str)
+            img = get_image(self.selected_file)
 
-        if response.status_code == 200:
-            response_data = response.json()
-            self.ids.decrypted_message.text = f"Decrypted: {response_data.get('message', 'N/A')}"
+            # Run decryption using local logic
+            bits = decript(img, pattern)
+            message = remakemessage(bits)
+
+            self.ids.decrypted_message.text = f"Decrypted: {message}"
             print("Decryption successful!")
-        else:
-            print("Decryption failed:", response.json())
+        except Exception as e:
+            print(f"Decryption failed: {e}")
+            self.ids.decrypted_message.text = "Decryption failed. Check key and image."
 
     def show_full_image(self, path):
         if not path:

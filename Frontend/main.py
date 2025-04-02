@@ -4,6 +4,9 @@ from kivy.lang import Builder
 from kivy.properties import BooleanProperty
 from kivy.uix.button import Button
 from Utils.theme import ThemeManager
+from Utils.utils import get_message_bits, get_image, get_message_length, is_even, to_binary, to_char
+import cv2
+
 
 # Corrected KV file paths (relative to Frontend folder)
 Builder.load_file("Looks/home.kv")
