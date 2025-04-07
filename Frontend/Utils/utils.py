@@ -23,7 +23,7 @@ def get_message_bits(message):
     return final_bits
 
 def get_image(image_path):
-    img = cv2.imread(image_path)
+    img = cv2.imread(image_path,cv2.IMREAD_UNCHANGED)
     assert img is not None, f"Image file '{image_path}' not found or unreadable."
     return img
 
