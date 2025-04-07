@@ -9,7 +9,7 @@ import math
 
 pattern = {"red" : 20 , "green" : 35 , "blue" :12}
 
-imagepath = "goop.png"
+imagepath = "prey.png"
 
 def isEven(int):
     if (int%2)==0:
@@ -102,7 +102,7 @@ def getMessage():
 
 
 def get_image(imagepath):
-    img = cv2.imread(imagepath)
+    img = cv2.imread(imagepath,cv2.IMREAD_UNCHANGED)
     assert img is not None, "File is missing"
     return img
 
@@ -448,20 +448,20 @@ def remakemessage(msg): #receives a embeded list of binary and converts it into 
 
 
           
-code =generateCode()
-key = connverToKeyString(code)
-transalateCode(key)
+#code =generateCode()
+#key = connverToKeyString(code)
+#transalateCode(key)
 
-#encript(img)
-
-
-#decripting = get_image("test.png")
-
-#message = decript(decripting)
+encript(img)
 
 
+decripting = get_image("test.png")
 
-#print(remakemessage(message))
+message = decript(decripting)
+
+
+
+print(remakemessage(message))
 
 
 
