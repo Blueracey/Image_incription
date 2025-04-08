@@ -3,7 +3,6 @@ from kivy.properties import StringProperty, BooleanProperty
 from kivy.uix.button import Button
 from kivy.uix.image import Image as KivyImage
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.app import App
 from kivy.core.clipboard import Clipboard
@@ -11,7 +10,7 @@ from tkinter import filedialog, Tk
 import shutil
 import os
 
-from Utils.utils import generate_random_pattern, get_image, generate_code, connver_to_key_string, translate_code
+from Utils.utils import generate_random_pattern, get_image
 from Utils.encryption import encript
 
 
@@ -29,15 +28,6 @@ class EncryptScreen(Screen):
         self.selected_file = file_path
         self.ids.selected_image.source = file_path
 
-    def show_alert(self, message):
-        popup = Popup(
-            title="Alert",
-            content=Label(text=message),
-            size_hint=(0.6, 0.3),
-            auto_dismiss=True
-        )
-        popup.open()
-
     def toggle_reuse_key(self):
         self.reuse_key = not self.reuse_key
         self.ids.reuse_key_button.text = "Reusing Key" if self.reuse_key else "Not Reusing Key"
@@ -46,45 +36,32 @@ class EncryptScreen(Screen):
 
     def encrypt_message(self):
         if not self.selected_file or self.selected_file == "No image selected":
-            self.show_alert("Please select an image first.")
+            print("Please select an image first.")
             return
 
         message = self.ids.message_input.text
         if not message:
-            self.show_alert("Please enter a message to encrypt.")
+            print("Please enter a message to encrypt.")
             return
 
         app = App.get_running_app()
 
         if self.reuse_key and app.reused_pattern:
             pattern = app.reused_pattern
-            code = app.reused_code
         else:
-            code = generate_code()
-            pattern = translate_code(connver_to_key_string(code))  # Get usable pattern from code
-
+            pattern = generate_random_pattern()
             if self.reuse_key:
                 app.reused_pattern = pattern
-                app.reused_code = code
 
         img = get_image(self.selected_file)
         output_path = "encrypted_output.png"
 
         encript(img, message, pattern)
 
-        self.ids.key_output.text = f"Key Used: {connver_to_key_string(code)}"
-
-        #Fully refresh image by resetting then reloading
-        self.ids.encrypted_image.source = ""
-        self.ids.encrypted_image.texture = None
+        self.ids.key_output.text = f"Key Used: {pattern}"
         self.ids.encrypted_image.source = output_path
-        self.ids.encrypted_image.reload()
-
         self.encrypted_file = output_path
-
-        self.show_alert("Encryption successful!")
-
-        self.ids.message_input.text = ""
+        print("Encryption successful!")
 
     def show_full_image(self, path):
         if not path:

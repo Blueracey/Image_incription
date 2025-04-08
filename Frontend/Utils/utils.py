@@ -42,34 +42,3 @@ def generate_random_pattern():
         "green": random.randint(3, 40),
         "blue": random.randint(3, 40),
     }
-
-def generate_code():
-    red = random.randint(4, 99)
-    green = random.randint(4, 99)
-    blue = random.randint(4, 99)
-    code = {
-        "red": hex(red * 12345600),
-        "green": hex(green * 12345600),
-        "blue": hex(blue * 12345600),
-    }
-    return code
-
-def connver_to_key_string(code):
-    return f'{code["red"]}|{code["green"]}|{code["blue"]}'
-
-def convert_key_string_to_dict(key):
-    split = key.split("|")
-    return {
-        "red": split[0],
-        "green": split[1],
-        "blue": split[2],
-    }
-
-def translate_code(key):
-    code = convert_key_string_to_dict(key)
-    pattern = {
-        "red": int(int(code["red"], 16) / 12345600),
-        "green": int(int(code["green"], 16) / 12345600),
-        "blue": int(int(code["blue"], 16) / 12345600),
-    }
-    return pattern
