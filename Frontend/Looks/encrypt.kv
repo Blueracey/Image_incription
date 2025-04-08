@@ -1,82 +1,112 @@
-<ImageButton@ButtonBehavior+Image>:
-    on_release: app.root.get_screen('encrypt').show_full_image(self.source)
-    allow_stretch: True
-    keep_ratio: True
-    size_hint_y: 0.5
-    canvas.before:
-        Color:
-            rgba: (0.95, 0.95, 0.95, 0.15) if self.source else (0, 0, 0, 0)
-        Rectangle:
-            pos: self.pos
-            size: self.size
+<ImagePopup@Popup>:
+    title: 'Image Preview'
+    size_hint: 0.9, 0.9
+    auto_dismiss: True
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        padding: 10
+        Image:
+            id: popup_image
+            source: ''
+            allow_stretch: True
+            keep_ratio: True
 
+<ImageButton@ButtonBehavior+Image>:
+    allow_stretch: False
+    keep_ratio: True
+    on_release: app.root.get_screen(app.root.current).show_full_image(self.source)
 
 <EncryptScreen>:
-    name: "encrypt"
     BoxLayout:
-        orientation: "vertical"
-        padding: 10
-        spacing: 10
+        orientation: 'vertical'
+        spacing: 0
+        padding: 0
         canvas.before:
             Color:
-                rgba: (0.05, 0.1, 0.2, 1) if not app.theme_mode else (0.85, 0.85, 0.85, 0.85)
+                rgba: 0.2, 0.3, 0.5, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
         Label:
-            text: "Encrypt"
-            font_size: 28
-            color: (1, 1, 1, 1)
+            text: "Encrypt Message"
+            color: 1, 1, 1, 1
+            font_size: '40sp'
+            size_hint_y: 0.14
 
         Button:
             text: "Select Image"
             on_release: root.open_file_chooser()
+            background_color: 0.1, 0.1, 0.1, 1
+            color: 1, 1, 1, 1
+            font_size: 32
+            size_hint_y: 0.09
 
         ImageButton:
             id: selected_image
-            source: ""
-            size_hint_y: 0.5
+            source: ''
+            size_hint_y: 0.13
+            allow_stretch: False
+            keep_ratio: True
 
         TextInput:
             id: message_input
-            hint_text: "Enter message to encrypt"
-            multiline: False
+            hint_text: "Enter your message"
+            multiline: True
+            foreground_color: 1, 1, 1, 1
+            background_color: 0.1, 0.1, 0.1, 1
+            font_size: 15
+            size_hint_y: 0.06
 
-        ToggleButton:
+        Button:
             id: reuse_key_button
             text: "Not Reusing Key"
-            on_release: root.toggle_reuse_key()
+            on_release:
+                root.toggle_reuse_key()
+                self.background_color = (0.1, 0.6, 0.1, 1) if root.reuse_key else (0.3, 0.4, 0.5, 1)
+            background_color: 0.3, 0.4, 0.5, 1
+            color: 1, 1, 1, 1
+            font_size: 32
+            size_hint_y: 0.09
 
         Button:
             text: "Encrypt"
             on_release: root.encrypt_message()
-
-        Label:
-            id: key_output
-            text: "Key Used: "
+            background_color: 0.2, 0.5, 0.9, 1
             color: 1, 1, 1, 1
-            size_hint_y: None
-            height: self.texture_size[1] + dp(20)
-            on_touch_down: if self.collide_point(*args[1].pos): root.copy_key_to_clipboard()
+            font_size: 32
+            size_hint_y: 0.10
+
+        Button:
+            id: key_output
+            text: "Click to copy key"
+            on_release: root.copy_key_to_clipboard()
+            background_color: 0, 0, 0, 0
+            color: 1, 1, 0.5, 1
+            font_size: 30
+            size_hint_y: 0.085
 
         ImageButton:
             id: encrypted_image
-            source: ""
-            size_hint_y: 0.5
-
-        Label:
-            id: success_label
-            text: ""
-            color: 0, 1, 0, 1
-            font_size: 16
-            size_hint_y: None
-            height: self.texture_size[1] + dp(10)
+            source: ''
+            size_hint_y: 0.13
+            allow_stretch: False
+            keep_ratio: True
 
         Button:
-            text: "Download Encrypted Image"
+            text: "Download Image"
             on_release: root.download_encrypted_image()
+            background_color: 0.1, 0.1, 0.1, 1
+            color: 1, 1, 1, 1
+            font_size: 32
+            size_hint_y: 0.08
 
         Button:
-            text: "Back to Home"
-            on_release: app.root.current = "home"
+            text: "Home"
+            on_release: app.root.current = 'home'
+            background_normal: ''
+            background_color: 0.5, 0.1, 0.1, 1
+            color: 1, 1, 1, 1
+            font_size: 32
+            size_hint_y: 0.12

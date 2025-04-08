@@ -1,60 +1,99 @@
+<ImagePopup@Popup>:
+    title: 'Image Preview'
+    size_hint: 0.9, 0.9
+    auto_dismiss: True
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        padding: 10
+        Image:
+            id: popup_image
+            source: ''
+            allow_stretch: True
+            keep_ratio: True
+
 <ImageButton@ButtonBehavior+Image>:
-    on_release: app.root.get_screen('encrypt').show_full_image(self.source)
-    allow_stretch: True
+    allow_stretch: False
     keep_ratio: True
-    size_hint_y: 0.5
-    canvas.before:
-        Color:
-            rgba: (0.95, 0.95, 0.95, 0.15) if self.source else (0, 0, 0, 0)
-        Rectangle:
-            pos: self.pos
-            size: self.size
+    on_release: app.root.get_screen(app.root.current).show_full_image(self.source)
 
 <DecryptScreen>:
-    name: "decrypt"
     BoxLayout:
-        orientation: "vertical"
-        padding: 10
-        spacing: 10
+        orientation: 'vertical'
+        spacing: 0
+        padding: 0
         canvas.before:
             Color:
-                rgba: (0.3, 0.15, 0.05, 1) if not app.theme_mode else (1, 0.8, 0.6, 1)
+                rgba: 1, 0.5, 0.2, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
         Label:
-            text: "Decrypt"
-            font_size: 28
-            color: (1, 1, 1, 1)
+            text: "Decrypt Message"
+            color: 1, 1, 1, 1
+            font_size: '40sp'
+            size_hint_y: 0.15
 
         Button:
             text: "Select Image"
             on_release: root.open_file_chooser()
+            background_color: 0.3, 0.2, 0.1, 1
+            color: 1, 1, 1, 1
+            font_size: 32
+            size_hint_y: 0.10
 
         ImageButton:
             id: selected_image
-            source: ""
-            size_hint_y: 0.5
+            source: ''
+            size_hint_y: 0.20
+            allow_stretch: False
+            keep_ratio: True
 
         TextInput:
             id: key_input
-            hint_text: "Enter decryption key"
+            hint_text: "Enter your key"
             multiline: False
+            foreground_color: 1, 1, 1, 1
+            background_color: 0.1, 0.1, 0.1, 1
+            font_size: 30
+            size_hint_y: 0.08
 
-        ToggleButton:
+        Button:
             id: reuse_key_button
             text: "Not Reusing Key"
-            on_release: root.toggle_reuse_key()
+            on_release:
+                root.toggle_reuse_key()
+                self.background_color = (0.1, 0.6, 0.1, 1) if root.reuse_key else (0.3, 0.2, 0.1, 1)
+            background_color: 0.3, 0.2, 0.1, 1
+            color: 1, 1, 1, 1
+            font_size: 32
+            size_hint_y: 0.10
 
         Button:
             text: "Decrypt"
             on_release: root.decrypt_message()
+            background_color: 1, 0.5, 0.2, 1
+            color: 1, 1, 1, 1
+            font_size: 32
+            size_hint_y: 0.10
 
         Label:
             id: decrypted_message
-            text: "Decrypted Message Here"
+            text: "Message Here"
+            color: 1, 1, 1, 1
+            font_size: 30
+            size_hint_y: None
+            height: self.texture_size[1] + dp(20)
+            text_size: self.width - dp(40), None
+            halign: 'center'
+            valign: 'middle'
 
         Button:
-            text: "Back to Home"
-            on_release: app.root.current = "home"
+            text: "Home"
+            on_release: app.root.current = 'home'
+            background_normal: ''
+            background_color: 0.5, 0.1, 0.1, 1
+            color: 1, 1, 1, 1
+            font_size: 32
+            size_hint_y: 0.12

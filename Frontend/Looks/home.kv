@@ -4,7 +4,7 @@
         orientation: "vertical"
         canvas.before:
             Color:
-                rgba: (1, 1, 1, 1) if app.theme_mode else (0.1, 0.1, 0.1, 1)
+                rgba: (1, 1, 1, 1)
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -20,14 +20,14 @@
             size_hint_y: 0.2
             Button:
                 text: "Encrypt"
-                background_color: (0.53, 0.81, 0.98, 1)
+                background_color: 0.2, 0.5, 0.9, 1
+                color: 1, 1, 1, 1
                 on_release: app.root.current = "encrypt"
+                font_size: 45
             Button:
                 text: "Decrypt"
-                background_color: (1, 0.4, 0.4, 1)
+                background_color: 0.9, 0.4, 0.1, 1
+                color: 1, 1, 1, 1
                 on_release: app.root.current = "decrypt"
+                font_size: 45
 
-        Button:
-            text: "Toggle Theme"
-            size_hint_y: 0.1
-            on_release: app.toggle_theme()

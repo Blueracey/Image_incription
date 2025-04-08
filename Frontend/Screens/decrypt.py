@@ -2,6 +2,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty, BooleanProperty
 from kivy.uix.image import Image as KivyImage
 from kivy.uix.popup import Popup
+from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from Utils.file_chooser import FileChooserPopup
@@ -66,9 +67,12 @@ class DecryptScreen(Screen):
     def show_full_image(self, path):
         if not path:
             return
+        # Avoid opening image if something else triggered this (like a label or button)
+        if not path.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
+            return
         image = KivyImage(source=path, allow_stretch=True)
         layout = BoxLayout()
         layout.add_widget(image)
         popup = Popup(title="Full Image Preview", content=layout,
-                      size_hint=(0.9, 0.9), auto_dismiss=True)
+                    size_hint=(0.9, 0.9), auto_dismiss=True)
         popup.open()

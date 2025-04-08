@@ -5,6 +5,7 @@ from kivy.uix.image import Image as KivyImage
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
+from kivy.lang import Builder
 from kivy.app import App
 from kivy.core.clipboard import Clipboard
 from tkinter import filedialog, Tk
@@ -86,14 +87,18 @@ class EncryptScreen(Screen):
 
         self.ids.message_input.text = ""
 
+
     def show_full_image(self, path):
         if not path:
+            return
+        # Avoid opening image if something else triggered this (like a label or button)
+        if not path.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
             return
         image = KivyImage(source=path, allow_stretch=True)
         layout = BoxLayout()
         layout.add_widget(image)
         popup = Popup(title="Full Image Preview", content=layout,
-                      size_hint=(0.9, 0.9), auto_dismiss=True)
+                    size_hint=(0.9, 0.9), auto_dismiss=True)
         popup.open()
 
     def copy_key_to_clipboard(self):
