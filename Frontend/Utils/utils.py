@@ -36,12 +36,7 @@ def get_message_length(img):
     total = int(red_digit + green_digit + blue_digit)
     return total * 8
 
-def generate_random_pattern():
-    return {
-        "red": random.randint(3, 40),
-        "green": random.randint(3, 40),
-        "blue": random.randint(3, 40),
-    }
+
 
 def generate_code():
     red = random.randint(4, 99)
