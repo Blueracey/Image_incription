@@ -20,6 +20,8 @@ class HomeScreen(Screen):
 
 class MyApp(App):
     theme_mode = BooleanProperty(False)  # False = Dark Mode, True = Light Mode
+    reused_pattern = None
+    reused_code = None
 
     def build(self):
         from Screens.encrypt import EncryptScreen
