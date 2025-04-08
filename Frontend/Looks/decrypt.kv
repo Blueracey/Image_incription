@@ -1,8 +1,14 @@
 <ImageButton@ButtonBehavior+Image>:
-    on_release: app.root.get_screen('decrypt').show_full_image(self.source)
+    on_release: app.root.get_screen('encrypt').show_full_image(self.source)
     allow_stretch: True
     keep_ratio: True
     size_hint_y: 0.5
+    canvas.before:
+        Color:
+            rgba: (0.95, 0.95, 0.95, 0.15) if self.source else (0, 0, 0, 0)
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
 <DecryptScreen>:
     name: "decrypt"
@@ -32,9 +38,14 @@
             size_hint_y: 0.5
 
         TextInput:
-            id: key_input
-            hint_text: "Enter decryption key"
-            multiline: False
+            id: message_input
+            hint_text: "Enter message to encrypt"
+            multiline: True
+            size_hint_y: None
+            height: self.minimum_height
+            text_size: self.width, None
+            halign: "left"
+            valign: "top"
 
         ToggleButton:
             id: reuse_key_button
