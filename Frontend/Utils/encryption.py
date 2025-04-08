@@ -11,7 +11,7 @@ def toBinary(char):
 
 def encript(img, message, pattern):
     # takes the image and interates through it following  the pattern provided to it 
-    # it then changes values by 1 in order to makie them positive or negative so we can later read that as binary 
+    # it then changes values by 1 in order to make them positive or negative so we can later read that as binary 
     # it then saves the image and exits
     
     red = pattern["red"]
@@ -55,7 +55,7 @@ def encript(img, message, pattern):
 
 
     messageby8 = int(imageLen/8)
-    messageby8ToStr = str(messageby8)
+    messageby8ToStr = str(messageby8) #this converts the message to a string so that I can check it's length so I know if it's one two or three digits and if it's not fill the blanks in with 0s
     if len(messageby8ToStr) == 3:
         pass
     elif len(messageby8ToStr) == 2 :
